@@ -11,6 +11,7 @@
     <mvc:annotation-driven />
     <!-- 开启注解扫描-->
     <context:component-scan base-package="com.tan.self" />
+    <import resource="classpath*:spring-mybatis.xml"/>
 
     <!-- json配置-->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
