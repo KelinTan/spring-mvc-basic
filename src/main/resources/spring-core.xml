@@ -2,22 +2,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
     <!-- 启用spring mvc 注解 -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
+    <mvc:default-servlet-handler />
     <!-- 开启注解扫描-->
-    <context:component-scan base-package="com.tan.self" />
+    <context:component-scan base-package="com.tan.self"/>
     <import resource="classpath*:spring-mybatis.xml"/>
 
     <!-- json配置-->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
-                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
             </list>
         </property>
     </bean>
@@ -25,6 +26,14 @@
     <!-- viewResolver配置-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
-         <property name="suffix" value=".jsp"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          p:defaultEncoding="UTF-8"
+          p:maxUploadSize="5400000"
+    />
+
+    <!-- swagger配置-->
+    <mvc:resources mapping="/swagger/**" location="/WEB-INF/swagger/" cache-period="31556926" />
 </beans>
